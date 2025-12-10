@@ -9,6 +9,14 @@ This project exposes a powerful AI endpoint allowing you to generate professiona
 2.  **Environment Variables**: In your Netlify Site Settings > Environment Variables, add:
     *   `GOOGLE_API_KEY`: Your Gemini API Key (get it from aistudio.google.com).
 
+### ⚠️ Common Deployment Errors
+
+**Error: Plugin "netlify-plugin-cloudinary" failed**
+If you see this error, you have inadvertently installed the Cloudinary plugin on your Netlify site.
+1. Go to Netlify Dashboard > **Plugins**.
+2. **Uninstall** the Cloudinary plugin.
+3. **Retry Deploy**.
+
 ## 📡 API Usage
 
 **Endpoint:** `https://your-site-name.netlify.app/.netlify/functions/api`  
