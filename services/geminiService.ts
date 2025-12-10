@@ -1,8 +1,9 @@
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.GOOGLE_API_KEY || process.env.API_KEY;
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
 
 if (!API_KEY) {
-  throw new Error("API Key not found in environment variables");
+  // We log a warning instead of throwing immediately to allow the UI to render and show error later if needed.
+  console.warn("API Key not found in environment variables. Please set GOOGLE_API_KEY.");
 }
 
 // Helper to parse base64 string and mime type
@@ -27,6 +28,7 @@ export const generateSceneDescription = async (
   productName: string,
   theme: string
 ): Promise<string> => {
+  if (!API_KEY) throw new Error("Missing API Key");
   const { mimeType, data } = parseImageInput(imageBase64);
 
   const prompt = `You are an expert creative director for high-end cosmetic brands. 
@@ -83,6 +85,7 @@ export const generateProductGallery = async (
   description: string,
   extraElements: string
 ): Promise<string[]> => {
+  if (!API_KEY) throw new Error("Missing API Key");
   const { mimeType, data } = parseImageInput(imageBase64);
 
   // Define 5 distinct compositions for the gallery to ensure variety but coherence
@@ -149,8 +152,6 @@ export const generateProductGallery = async (
         // If we are here, no image was found. Check for text error.
         const textPart = result.candidates[0].content.parts.find((p: any) => p.text);
         if (textPart && textPart.text) {
-          // If the model output text instead of an image, it failed to generate.
-          // We throw an error to trigger the UI error state, but we log the text for debugging.
           console.warn("Model returned text instead of image:", textPart.text);
           throw new Error(`The model responded with text instead of an image. Please try again with a simpler description.`);
         }
