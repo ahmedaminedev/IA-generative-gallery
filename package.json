@@ -3,8 +3,7 @@
   "name": "lumiere-ai-studio",
   "version": "1.0.0",
   "description": "AI Product Photography Studio",
-  "main": "index.tsx",
-  "scripts": {
+   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html --dist-dir dist"
   },
