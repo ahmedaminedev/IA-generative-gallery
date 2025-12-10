@@ -1,4 +1,3 @@
-
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
 
@@ -89,8 +88,8 @@ async function generateSingleImage(imageBase64, description, themePrompt, compos
   return `data:image/png;base64,${b64}`;
 }
 
-// Main Handler
-export const handler = async (event, context) => {
+// Main Handler (CommonJS Syntax for Netlify)
+exports.handler = async (event, context) => {
   // Only allow POST
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
