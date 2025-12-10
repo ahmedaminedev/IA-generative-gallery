@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+# Configuration pour corriger l'erreur du plugin Cloudinary
+[[plugins]]
+  package = "netlify-plugin-cloudinary"
+  [plugins.inputs]
+    cloudName = "dmtl3kxui"
+
+# Redirection pour Single Page Application (React)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
